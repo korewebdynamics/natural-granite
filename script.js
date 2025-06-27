@@ -12,16 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.carousel-card');
     let currentIndex = 0;
     let autoSlideInterval = null;
-    const autoSlideDelay = 4000; // 4 seconds
+    const autoSlideDelay = 2000; 
 
-    // Debug: Check elements
+    
     if (!seeDetailsButton) console.error('See Details button not found');
     if (!header) console.error('Header not found');
     if (!mainSection) console.error('Main section not found');
-    // Debug: Carousel info
+    
     console.log('Carousel cards count:', cards.length);
 
-    // Calculate card width
+    
     const getCardWidth = () => {
         if (!cards.length) return 0;
         const computedStyle = getComputedStyle(cards[0]);
@@ -32,13 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return width;
     };
 
-    // Update carousel
+    
     const updateCarousel = (isAuto = false) => {
         if (!cards.length) return;
         const cardWidth = getCardWidth();
         if (cardWidth === 0) return;
 
-        // Cap currentIndex
+        
         if (currentIndex >= cards.length) {
             currentIndex = 0;
             carouselTrack.style.transition = 'none';
@@ -56,16 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             carouselTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
         }
-        // Debug container and track widths
+       
         if (carouselContainer) {
             console.log('Container width:', carouselContainer.offsetWidth);
             console.log('Track width:', carouselTrack.offsetWidth);
         }
-        // Reset auto-slide on manual interaction
+        
         if (!isAuto) resetAutoSlide();
     };
 
-    // Start auto-slide
+    
     const startAutoSlide = () => {
         stopAutoSlide();
         autoSlideInterval = setInterval(() => {
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, autoSlideDelay);
     };
 
-    // Stop auto-slide
+    
     const stopAutoSlide = () => {
         if (autoSlideInterval) {
             clearInterval(autoSlideInterval);
@@ -82,13 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Reset auto-slide timer
+    
     const resetAutoSlide = () => {
         stopAutoSlide();
         startAutoSlide();
     };
 
-    // Language selection
+    
     if (languageSelect) {
         languageSelect.addEventListener('change', (event) => {
             const lang = event.target.value;
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // See Details button transition
+    
     if (seeDetailsButton) {
         seeDetailsButton.addEventListener('click', (event) => {
             event.preventDefault();
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Nav logo/company name click to return to header
+    
     if (navLogoLink) {
         navLogoLink.addEventListener('click', (event) => {
             event.preventDefault();
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Nav links smooth scrolling
+   
     navLinks.forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
@@ -155,9 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Carousel functionality
+   
     if (carouselTrack && prevButton && nextButton && cards.length) {
-        // Event listeners
+        
         nextButton.addEventListener('click', () => {
             currentIndex++;
             updateCarousel();
@@ -168,21 +168,31 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCarousel();
         });
 
-        // Pause auto-slide on hover
+      
         if (carouselContainer) {
             carouselContainer.addEventListener('mouseenter', stopAutoSlide);
             carouselContainer.addEventListener('mouseleave', startAutoSlide);
         }
 
-        // Update on resize
+        
         window.addEventListener('resize', () => {
             updateCarousel();
         });
 
-        // Start auto-slide
+        
         startAutoSlide();
 
-        // Initial update
         updateCarousel();
     }
+    
+    const cards1 = document.querySelectorAll('.service-card, .s-img, .t-img');
+    
+    cards1.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.borderColor = '#FF3F33'; 
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.borderColor = '#000';
+        });
+    });
 });
